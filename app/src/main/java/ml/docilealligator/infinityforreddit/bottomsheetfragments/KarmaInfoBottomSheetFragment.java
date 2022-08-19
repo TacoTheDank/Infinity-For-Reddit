@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialogFragment;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import ml.docilealligator.infinityforreddit.R;
 
-public class KarmaInfoBottomSheetFragment extends RoundedBottomSheetDialogFragment {
+public class KarmaInfoBottomSheetFragment extends BottomSheetDialogFragment {
     public static final String EXTRA_POST_KARMA = "EPK";
     public static final String EXTRA_COMMENT_KARMA = "ECK";
     public static final String EXTRA_AWARDER_KARMA = "EARK";
@@ -59,5 +59,10 @@ public class KarmaInfoBottomSheetFragment extends RoundedBottomSheetDialogFragme
         awardeeKarmaTextView.setText(Integer.toString(awardeeKarma));
 
         return rootView;
+    }
+
+    @Override
+    public int getTheme() {
+        return R.style.CustomBottomSheetDialogStyle;
     }
 }
