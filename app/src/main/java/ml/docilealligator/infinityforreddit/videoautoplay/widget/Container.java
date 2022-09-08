@@ -126,7 +126,7 @@ public class Container extends RecyclerView {
     }
 
     PowerManager powerManager = (PowerManager) getContext().getSystemService(POWER_SERVICE);
-    if (powerManager != null && powerManager.isScreenOn()) {
+    if (powerManager != null && powerManager.isInteractive()) {
       this.screenState = View.SCREEN_STATE_ON;
     } else {
       this.screenState = View.SCREEN_STATE_OFF;

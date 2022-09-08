@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
 
-import com.google.android.exoplayer2.database.ExoDatabaseProvider;
+import com.google.android.exoplayer2.database.StandaloneDatabaseProvider;
 import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor;
 import com.google.android.exoplayer2.upstream.cache.SimpleCache;
 
@@ -340,7 +340,7 @@ class AppModule {
     @Singleton
     SimpleCache provideSimpleCache() {
         return new SimpleCache(new File(mApplication.getCacheDir(), "/exoplayer"),
-                new LeastRecentlyUsedCacheEvictor(200 * 1024 * 1024), new ExoDatabaseProvider(mApplication));
+                new LeastRecentlyUsedCacheEvictor(200 * 1024 * 1024), new StandaloneDatabaseProvider(mApplication));
     }
 
     @Provides

@@ -107,14 +107,14 @@ class PlayableImpl implements Playable {
         ensureMediaSource();
         ensurePlayerView();
         checkNotNull(player, "Playable#play(): Player is null!");
-        player.getPlayer().setPlayWhenReady(true);
+        player.getPlayer().play();
     }
 
     @CallSuper
     @Override
     public void pause() {
         // Player is not required to be non-null here.
-        if (player != null) player.getPlayer().setPlayWhenReady(false);
+        if (player != null) player.getPlayer().pause();
     }
 
     @CallSuper
@@ -259,8 +259,8 @@ class PlayableImpl implements Playable {
 
     final void updatePlaybackInfo() {
         if (player == null || player.getPlayer().getPlaybackState() == Player.STATE_IDLE) return;
-        playbackInfo.setResumeWindow(player.getPlayer().getCurrentWindowIndex());
-        playbackInfo.setResumePosition(player.getPlayer().isCurrentWindowSeekable() ? //
+        playbackInfo.setResumeWindow(player.getPlayer().getCurrentMediaItemIndex());
+        playbackInfo.setResumePosition(player.getPlayer().isCurrentMediaItemSeekable() ? //
                 Math.max(0, player.getPlayer().getCurrentPosition()) : TIME_UNSET);
         playbackInfo.setVolumeInfo(ToroExo.getVolumeInfo(player));
     }
@@ -279,7 +279,8 @@ class PlayableImpl implements Playable {
         if (!sourcePrepared) {
             ensurePlayer(); // sourcePrepared is set to false only when player is null.
             beforePrepareMediaSource();
-            player.getPlayer().prepare(mediaSource, playbackInfo.getResumeWindow() == C.INDEX_UNSET, false);
+            player.getPlayer().setMediaSource(mediaSource, playbackInfo.getResumeWindow() == C.INDEX_UNSET);
+            player.getPlayer().prepare();
             sourcePrepared = true;
         }
     }

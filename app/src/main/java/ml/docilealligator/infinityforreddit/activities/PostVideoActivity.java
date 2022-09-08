@@ -33,7 +33,8 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultDataSource;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
@@ -218,8 +219,10 @@ public class PostVideoActivity extends BaseActivity implements FlairBottomSheetF
 
         player = new ExoPlayer.Builder(this).build();
         videoPlayerView.setPlayer(player);
-        dataSourceFactory = new DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, "Infinity"));
+        dataSourceFactory = new DefaultDataSource.Factory(this,
+                new DefaultHttpDataSource.Factory()
+                        .setUserAgent(Util.getUserAgent(this, "Infinity"))
+        );
         if (mSharedPreferences.getBoolean(SharedPreferencesUtils.LOOP_VIDEO, true)) {
             player.setRepeatMode(Player.REPEAT_MODE_ALL);
         } else {
@@ -410,7 +413,7 @@ public class PostVideoActivity extends BaseActivity implements FlairBottomSheetF
 
         selectAgainTextView.setOnClickListener(view -> {
             wasPlaying = false;
-            player.setPlayWhenReady(false);
+            player.pause();
             videoUri = null;
             videoPlayerView.setVisibility(View.GONE);
             selectAgainTextView.setVisibility(View.GONE);
@@ -491,8 +494,9 @@ public class PostVideoActivity extends BaseActivity implements FlairBottomSheetF
         constraintLayout.setVisibility(View.GONE);
         selectAgainTextView.setVisibility(View.VISIBLE);
         videoPlayerView.setVisibility(View.VISIBLE);
-        player.prepare(new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(videoUri)));
-        player.setPlayWhenReady(true);
+        player.setMediaSource(new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(videoUri)));
+        player.prepare();
+        player.play();
         wasPlaying = true;
     }
 
@@ -622,14 +626,14 @@ public class PostVideoActivity extends BaseActivity implements FlairBottomSheetF
     protected void onStart() {
         super.onStart();
         if (wasPlaying) {
-            player.setPlayWhenReady(true);
+            player.play();
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        player.setPlayWhenReady(false);
+        player.pause();
     }
 
     @Override
@@ -699,7 +703,8 @@ public class PostVideoActivity extends BaseActivity implements FlairBottomSheetF
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         player.seekToDefaultPosition();
-        player.stop(true);
+        player.stop();
+        player.clearMediaItems();
         player.release();
     }
 

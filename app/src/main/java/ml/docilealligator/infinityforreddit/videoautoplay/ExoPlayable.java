@@ -27,9 +27,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Tracks;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
@@ -62,7 +62,7 @@ public class ExoPlayable extends PlayableImpl {
 
     /**
      * Construct an instance of {@link ExoPlayable} from an {@link ExoCreator} and {@link Uri}. The
-     * {@link ExoCreator} is used to request {@link SimpleExoPlayer} instance, while {@link Uri}
+     * {@link ExoCreator} is used to request {@link ExoPlayer} instance, while {@link Uri}
      * defines the media to play.
      *
      * @param creator the {@link ExoCreator} instance.

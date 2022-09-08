@@ -27,14 +27,13 @@ import androidx.annotation.NonNull;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.RenderersFactory;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 
 import ml.docilealligator.infinityforreddit.videoautoplay.media.VolumeInfo;
 
 /**
- * A custom {@link SimpleExoPlayer} that also notify the change of Volume.
+ * A custom {@link ExoPlayer} that also notify the change of Volume.
  *
  * @author eneim (2018/03/27).
  */

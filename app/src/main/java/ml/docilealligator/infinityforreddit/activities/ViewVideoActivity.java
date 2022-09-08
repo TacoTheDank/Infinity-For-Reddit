@@ -594,7 +594,7 @@ public class ViewVideoActivity extends AppCompatActivity implements CustomFontRe
         if (resumePosition > 0) {
             player.seekTo(resumePosition);
         }
-        player.setPlayWhenReady(true);
+        player.play();
         wasPlaying = true;
 
         boolean muteVideo = mSharedPreferences.getBoolean(SharedPreferencesUtils.MUTE_VIDEO, false) ||
@@ -876,7 +876,8 @@ public class ViewVideoActivity extends AppCompatActivity implements CustomFontRe
     protected void onDestroy() {
         super.onDestroy();
         player.seekToDefaultPosition();
-        player.stop(true);
+        player.stop();
+        player.clearMediaItems();
         player.release();
     }
 
@@ -940,7 +941,7 @@ public class ViewVideoActivity extends AppCompatActivity implements CustomFontRe
     protected void onStart() {
         super.onStart();
         if (wasPlaying) {
-            player.setPlayWhenReady(true);
+            player.play();
         }
     }
 
@@ -948,7 +949,7 @@ public class ViewVideoActivity extends AppCompatActivity implements CustomFontRe
     protected void onStop() {
         super.onStop();
         wasPlaying = player.getPlayWhenReady();
-        player.setPlayWhenReady(false);
+        player.pause();
         if (originalOrientation != null) {
             try {
                 setRequestedOrientation(originalOrientation);

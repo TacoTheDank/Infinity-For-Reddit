@@ -96,7 +96,7 @@ public class PressablePlayerSelector implements PlayerSelector, OnLongClickListe
     boolean handled = viewHolder instanceof ToroPlayer;
     if (handled) handled = allowsToPlay((ToroPlayer) viewHolder);
 
-    int position = handled ? viewHolder.getAdapterPosition() : NO_POSITION;
+    int position = handled ? viewHolder.getBindingAdapterPosition() : NO_POSITION;
     if (handled) handled = position != toPlay.getAndSet(position);
 
     if (handled) container.onScrollStateChanged(RecyclerView.SCROLL_STATE_IDLE);

@@ -30,7 +30,6 @@ import androidx.annotation.StringRes;
 import androidx.core.util.Pools;
 
 import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.util.Util;
 
 import java.net.CookieHandler;
@@ -44,7 +43,7 @@ import ml.docilealligator.infinityforreddit.utils.APIUtils;
 import ml.docilealligator.infinityforreddit.videoautoplay.media.VolumeInfo;
 
 /**
- * Global helper class to manage {@link ExoCreator} and {@link SimpleExoPlayer} instances.
+ * Global helper class to manage {@link ExoCreator} and {@link ExoPlayer} instances.
  * In this setup, {@link ExoCreator} and SimpleExoPlayer pools are cached. A {@link Config}
  * is a key for each {@link ExoCreator}.
  * <p>
@@ -131,14 +130,14 @@ public final class ToroExo {
     }
 
     /**
-     * Request an instance of {@link SimpleExoPlayer}. It can be an existing instance cached by Pool
+     * Request an instance of {@link ExoPlayer}. It can be an existing instance cached by Pool
      * or new one.
      * <p>
      * The creator may or may not be the one created by either {@link #getCreator(Config)} or
      * {@link #getDefaultCreator()}.
      *
-     * @param creator the {@link ExoCreator} that is scoped to the {@link SimpleExoPlayer} config.
-     * @return an usable {@link SimpleExoPlayer} instance.
+     * @param creator the {@link ExoCreator} that is scoped to the {@link ExoPlayer} config.
+     * @return an usable {@link ExoPlayer} instance.
      */
     @NonNull  //
     public final ToroExoPlayer requestPlayer(@NonNull ExoCreator creator) {
@@ -151,7 +150,7 @@ public final class ToroExo {
      * Release player to Pool attached to the creator.
      *
      * @param creator the {@link ExoCreator} that created the player.
-     * @param player  the {@link SimpleExoPlayer} to be released back to the Pool
+     * @param player  the {@link ExoPlayer} to be released back to the Pool
      * @return true if player is released to relevant Pool, false otherwise.
      */
     @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"}) //

@@ -20,10 +20,10 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.Tracks;
 import com.google.android.exoplayer2.metadata.Metadata;
@@ -43,7 +43,7 @@ import ml.docilealligator.infinityforreddit.videoautoplay.media.PlaybackInfo;
 import ml.docilealligator.infinityforreddit.videoautoplay.media.VolumeInfo;
 
 /**
- * Define an interface to control a playback, specific for {@link SimpleExoPlayer} and {@link PlayerView}.
+ * Define an interface to control a playback, specific for {@link ExoPlayer} and {@link StyledPlayerView}.
  * <p>
  * This interface is designed to be reused across Config change. Implementation must not hold any
  * strong reference to Activity, and if it supports any kind of that, make sure to implicitly clean
@@ -57,8 +57,8 @@ import ml.docilealligator.infinityforreddit.videoautoplay.media.VolumeInfo;
 public interface Playable {
 
     /**
-     * Prepare the resource for a {@link SimpleExoPlayer}. This method should:
-     * - Request for new {@link SimpleExoPlayer} instance if there is not a usable one.
+     * Prepare the resource for a {@link ExoPlayer}. This method should:
+     * - Request for new {@link ExoPlayer} instance if there is not a usable one.
      * - Configure {@link EventListener} for it.
      * - If there is non-trivial PlaybackInfo, update it to the SimpleExoPlayer.
      * - If client request to prepare MediaSource, then prepare it.
@@ -274,11 +274,6 @@ public interface Playable {
 
         @Override
         public void onPlaybackParametersChanged(@NonNull PlaybackParameters playbackParameters) {
-
-        }
-
-        @Override
-        public void onSeekProcessed() {
 
         }
 

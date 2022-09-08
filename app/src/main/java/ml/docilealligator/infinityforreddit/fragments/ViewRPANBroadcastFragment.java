@@ -369,7 +369,7 @@ public class ViewRPANBroadcastFragment extends Fragment {
         }
 
         if (wasPlaying) {
-            player.setPlayWhenReady(true);
+            player.play();
         }
 
         if (webSocket == null) {
@@ -383,14 +383,15 @@ public class ViewRPANBroadcastFragment extends Fragment {
     public void onPause() {
         super.onPause();
         wasPlaying = player.getPlayWhenReady();
-        player.setPlayWhenReady(false);
+        player.pause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         player.seekToDefaultPosition();
-        player.stop(true);
+        player.stop();
+        player.clearMediaItems();
         player.release();
 
         if (webSocket != null) {

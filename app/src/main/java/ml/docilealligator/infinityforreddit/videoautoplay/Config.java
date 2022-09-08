@@ -27,15 +27,15 @@ import androidx.core.util.ObjectsCompat;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory.ExtensionRendererMode;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.LoadControl;
-import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.cache.Cache;
 
 /**
- * Necessary configuration for {@link ExoCreator} to produces {@link SimpleExoPlayer} and
+ * Necessary configuration for {@link ExoCreator} to produces {@link ExoPlayer} and
  * {@link MediaSource}. Instance of this class must be construct using {@link Builder}.
  *
  * @author eneim (2018/01/23).
